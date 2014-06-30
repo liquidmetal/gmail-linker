@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+
+  "name": "GMail Linker",
+  "description": "Parses content in gmail to give you quick links",
+  "version": "0.1",
+
+  "permissions": [
+    "https://*.gmail.com/"
+  ],
+  "web_accessible_resources": ["gmail.min.js", "linker.js"],
+  "content_scripts": [
+    {
+      "matches": [
+          "http://*/*",
+          "https://*/*"
+      ],
+      "js": ["global.js"],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": ["https://*.mail.google.com/*"],
+      "js": ["jquery-2.1.0.js", "stub.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
