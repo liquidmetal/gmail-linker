@@ -6,8 +6,9 @@ function parseEmail() {
 function initialize() {
     window.gmail = Gmail()
     console.log("Logged in from: " + window.gmail.get.user_email());
-
-    window.gmail.observe.on("open_email", parseEmail);
+    console.log("Is threaded: " + window.gmail.check.is_thread());
+    console.log("Hangouts: " + window.gmail.chat.is_hangouts());
 }
 
-window.addEventListener('load', initialize);
+$(document).ready(initialize);
+//window.addEventListener('load', initialize);
