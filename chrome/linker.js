@@ -10,5 +10,5 @@ function initialize() {
     console.log("Hangouts: " + window.gmail.chat.is_hangouts());
 }
 
-$(document).ready(initialize);
-//window.addEventListener('load', initialize);
+//$(document).ready(initialize);
+window.addEventListener('load', initialize);
