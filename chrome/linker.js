@@ -7,7 +7,9 @@ function initialize() {
     window.gmail = Gmail()
     console.log("Logged in from: " + window.gmail.get.user_email());
     console.log("Is threaded: " + window.gmail.check.is_thread());
-    console.log("Hangouts: " + window.gmail.chat.is_hangouts());
+    window.gmail.observe.on('chat_open', function(id, url, body) {
+      console.log("id:", id, "url:", url, 'body', body);
+      });
 }
 
 //$(document).ready(initialize);
