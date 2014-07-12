@@ -9,6 +9,11 @@ function initialize() {
     console.log("Is threaded: " + window.gmail.check.is_thread());
     window.gmail.observe.on('chat_open', function(id, url, body) {
       console.log("id:", id, "url:", url, 'body', body);
+      window.gmail.chat.chat_windows();
+      });
+    window.gmail.observe.on('chat_close', function(id, url, body) {
+      console.log("id:", id, "url:", url, 'body', body);
+      window.gmail.chat.chat_windows();
       });
 }
 
