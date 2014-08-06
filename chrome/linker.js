@@ -5,7 +5,8 @@ function parseEmail() {
 
 function linkChatPiece(index) {
     var pieceHtml = $(this).html();
-    m = pieceHtml.match(/[a-zA-Z]+\-[0-9]+/g)
+    var m = pieceHtml.match(/[a-zA-Z]+\-[0-9]+/g)
+    if(!m) m = [];
     for(var i=0; i<m.length; i++) {
         pieceHtml = pieceHtml.replace(m[i], "<a target='_blank' href='http://jira.anim.dreamworks.com/browse/" + m[i] + "'>" + m[i] + "</a>");
     }
@@ -23,11 +24,10 @@ function linkifyChats(chatWindows) {
 
     // hanging text
     chatTextsLeft = $('.km > .kk > span:not([class])', chatContexts)
-    chatTextsLeftHanging = $('.km > .kl', chatContexts)
+    chatTextsLeft = chatTextsLeft.add('.km > .kl', chatContexts)
 
-    $.each(chatTextsRight, linkChatPiece);
-    $.each(chatTextsLeft, linkChatPiece);
-    $.each(chatTextsLeftHanging, linkChatPiece);
+    if(chatTextsLeft.length>0) { $.each(chatTextsLeft, linkChatPiece); }
+    if(chatTextsRight.length>0) { $.each(chatTextsRight, linkChatPiece); }
 }
 
 function initialize() {
@@ -42,6 +42,11 @@ function initialize() {
       console.log("id:", id, "url:", url, 'body', body);
       window.gmail.chat.chat_windows();
       });
+    window.gmail.observe.on('chat_message', function(id, url, body) {
+      console.log('Message sent!');
+      chatWindows = window.gmail.chat.chat_windows();
+      linkifyChats(chatWindows);
+    });
 }
 
 //$(document).ready(initialize);
